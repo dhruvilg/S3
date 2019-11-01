@@ -2,12 +2,12 @@
   $BUCKET_NAME = '';
   $IAM_KEY = '';
   $IAM_SECRET = '';
-  require '../vendor/autoload.php';
+  require '../vendor/autoload.php'; 
   use Aws\S3\S3Client;
   use Aws\S3\Exception\S3Exception;
  
-  $keyPath = 'IoT-Arduino-Monitor-circuit.png';
-  
+  $keyPath = 'IoT-Arduino-Monitor-circuit.png'; // file name(can also include the folder name and the file name. eg."member1/IoT-Arduino-Monitor-circuit.png")
+  //S3 connection 
   try {
     $s3 = S3Client::factory(
       array(
@@ -20,6 +20,7 @@
       )
     );
     
+    //to get the file from s3 private bucket
     $result = $s3->getObject(array(
       'Bucket' => $BUCKET_NAME,
       'Key'    => $keyPath
