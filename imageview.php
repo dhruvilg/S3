@@ -5,7 +5,7 @@
   require '../vendor/autoload.php';
   use Aws\S3\S3Client;
   use Aws\S3\Exception\S3Exception;
-  
+  //S3 connection 
   $s3 = S3Client::factory(
       array(
         'credentials' => array(
@@ -16,7 +16,8 @@
         'region'  => 'us-east-1'
       )
     );
-  $keyPath = 'uploadedfiles/IoT-Arduino-Monitor-circuit.png';
+  $keyPath = 'member1/IoT-Arduino-Monitor-circuit.png'; // file name(can also include the folder name and the file name. eg."member1/IoT-Arduino-Monitor-circuit.png")
+  //S3 connection 
   $fileName = 'IoT-Arduino-Monitor-circuit.png';
 $command = $s3->getCommand('GetObject', array(
             'Bucket'      => $BUCKET_NAME,
@@ -24,10 +25,10 @@ $command = $s3->getCommand('GetObject', array(
             'ContentType' => 'image/png',
             'ResponseContentDisposition' => 'attachment; filename="'.$fileName.'"'
         ));
-$signedUrl = $s3->createPresignedRequest($command, "+6 days");
+$signedUrl = $s3->createPresignedRequest($command, "+6 days"); 
 
 // Create a signed URL from the command object that will last for
-// 10 minutes from the current time
+// 6 days from the current time
 $presignedUrl = (string)$signedUrl->getUri();
 
 //echo file_get_contents($presignedUrl);
